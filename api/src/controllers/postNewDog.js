@@ -6,7 +6,6 @@ const createDog = async (
 	weight,
 	life_span,
 	temperament,
-	breed_group
 ) => {
 	if (name && height && weight && life_span) {
 		const newDog = await Dog.create({
@@ -15,7 +14,6 @@ const createDog = async (
 			height,
 			life_span,
 			temperament,
-			breed_group,
 		});
 		if (newDog) {
 			return newDog;

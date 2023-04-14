@@ -1,21 +1,31 @@
 const axios = require("axios");
 const {Dog} = require("../db")
+const { Op } = require("sequelize");
 
 const getBreedByName = async (name) => {
 
 	const dogName = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`);
-	let breed = "";
-	breed = dogName.data[0].breed_group
-	const dogsApi = await axios.get("https://api.thedogapi.com/v1/breeds/")
-	const breeds = dogsApi.data.filter((dog) => dog.breed_group === breed);
+	const dogsList = dogName.data
+	// let breed = "";
+	// breed = dogName.data[0].breed_group
+	// const dogsApi = await axios.get("https://api.thedogapi.com/v1/breeds/")
+	// const breeds = dogsApi.data.filter((dog) => dog.breed_group === breed);
 	
-	const breeds_db= await Dog.findAll({where:{breed_group:breed}})
+	// const breeds_db= await Dog.findAll({where:{breed_group:breed}})
+	const dogs_db = await Dog.findAll({
+		where: {
+		  name: {
+			[Op.iLike]: `%${name}%`,
+		  },
+		},
+	  });
 	
 	if(!dogName.data.length && !breeds_db.length){
 		throw Error ('Name not found')
 	}
 
-	return [...breeds,...breeds_db];
+	// return [...breeds,...breeds_db];
+	return [...dogsList,...dogs_db]
 };
 
 module.exports = {

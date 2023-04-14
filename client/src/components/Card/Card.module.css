@@ -1,0 +1,19 @@
+.conteiner{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: rgba(245, 245, 220, 0.164);
+}
+.card{
+  /* width: 25%; */
+  box-sizing: border-box;
+  background-color: aqua;
+  margin: 2em;
+  opacity: 0.7;
+  font-size: small;
+}
+.imgDog{
+  box-sizing: content-box;
+  width: 250px; 
+  height: 250px; 
+}

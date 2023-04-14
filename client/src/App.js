@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { Route, Switch, useNavigate, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Login from "./components/Login/Login";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./components/Home/HomePage.jsx";
@@ -12,12 +12,12 @@ function App() {
 	return (
 		<div className="App">
 			{pathname !== '/' && <NavBar />}
-			<Switch>
-				<Route exact path={"/"} component={Login} />
-				<Route exact path={"/dogs"} component={HomePage} />
-				<Route exact path={"/detail"} component={Detail} />
-				<Route exact path={"/form"} component={Form} />
-			</Switch>
+			<Routes>
+				<Route exact path={"/"} element={<Login/>} />
+				<Route exact path={"/dogs"} element={<HomePage/>} />
+				<Route exact path={"/detail/:id"} element={<Detail/>} />
+				<Route exact path={"/form"} element={<Form/>} />
+			</Routes>
 		</div>
 	);
 }

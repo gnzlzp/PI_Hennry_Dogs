@@ -1,26 +1,22 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar";
-import axios from "axios";
-import useDispatch from 'react-redux'
-
-// import axios from 'axios'
+import Card from "../Card/Card";
+import style from '../Card/Card.module.css'
 
 const HomePage = () => {
-	
-	// const dispatch = useDispatch()
-
-	useEffect(async () => {
-		const dogsServ = await axios.get("http://localhost:3001/dogs");
-		const dogs = dogsServ.data
-	}, []);
+	const dogs = useSelector((state) => state.dogs);
+	const first_eight = dogs.slice(0, 8);
+	// useEffect(() => {
+	// }, [dogs]);
 
 	return (
 		<>
-			<div>
-				<SearchBar />
-				<div>
-					
-				</div>
+			<SearchBar />
+			<div className={style.conteiner}>
+				{first_eight.map((dog) => {
+					return <Card dog={dog} />
+					})}
 			</div>
 		</>
 	);

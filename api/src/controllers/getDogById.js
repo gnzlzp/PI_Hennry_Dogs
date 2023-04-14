@@ -6,7 +6,6 @@ const getDogById = async (idDog, src) => {
 	if (src === "api") {
 		const dogApi = await axios.get(`https://api.thedogapi.com/v1/breeds/${idDog}`);
 		const dog = dogApi.data;
-		console.log(dog)
 		return  {
 			id: dog.id,
 			name: dog.name,
@@ -14,7 +13,6 @@ const getDogById = async (idDog, src) => {
 			height: dog.height,
 			life_span: dog.life_span,
 			temperament: dog.temperament,
-			reference_image_id: dog.reference_image_id,
 			image: dog.reference_image_id && `${url_image}${dog.reference_image_id}.jpg`
 		};
 	} else {

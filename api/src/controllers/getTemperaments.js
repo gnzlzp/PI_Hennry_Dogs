@@ -1,14 +1,17 @@
 const axios = require("axios");
-const { postTemperaments } = require("../controllers/postTemperaments");
+const { createTemperaments } = require("./createTemperaments");
 
 
 const getTemperaments = async () => {
+
 	const tempsApi = await axios.get("https://api.thedogapi.com/v1/breeds");
+	
 	const temperaments = [];
 
 	tempsApi.data.forEach((dog) => {
 		if (dog.temperament) {
-			const temps = dog.temperament.split(",");
+			const temps = dog.temperament.split(","); 
+
 			temps.forEach((temp) => {
 				if (!temperaments.includes(temp.trim())) {
 					temperaments.push(temp.trim());
@@ -17,7 +20,7 @@ const getTemperaments = async () => {
 		}
 	});
 
-	postTemperaments(temperaments.sort())
+	createTemperaments(temperaments.sort())
 
 	return temperaments;
 };
