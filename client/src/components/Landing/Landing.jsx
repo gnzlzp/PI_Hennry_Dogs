@@ -1,28 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import imgDog from "./50f.png";
 import { useDispatch } from "react-redux";
-import { getAllDogs } from "../Redux/actions";
+import { getAllDogs, getAllTemperaments } from "../../Redux/actions";
 import axios from "axios";
 
 const Login = () => {
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		alert("BIENVENIDO");
-		return async () => {
-			const dogsServ = await axios.get("http://localhost:3001/dogs");
-			const allDogs = dogsServ.data;
-			dispatch(getAllDogs(allDogs));
-		};
+
+	useEffect(async () => {
+		try {
+			dispatch(getAllDogs())
+			dispatch(getAllTemperaments())
+		} catch (error) {
+			throw Error ('Algo salio mal')
+		}
 	}, []);
+
+	const handleClick = () => {
+	};
+
 	return (
 		<div>
 			<div>
 				<img src={imgDog} alt="" style={{ width: "30%" }} />
 			</div>
 			<Link to="/dogs">
-				<button>Follow</button>
+				<button onClick={handleClick}>Foward</button>
 			</Link>
 		</div>
 	);

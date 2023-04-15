@@ -1,7 +1,7 @@
 
 .App {
   background-color: grey;
-  background-image: url(../public/img/169770-Beagles-dog-blurred-depth_of_field-animals.jpg);
+  background-image: url(./images/dog-main.jpg);
   background-size: cover;
   height: 100vh;
   text-align: center;

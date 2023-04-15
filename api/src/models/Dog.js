@@ -29,15 +29,9 @@ module.exports = (sequelize) => {
 				allowNull: false,
 			},
 			image: {
-				type: DataTypes.STRING,
+				type: DataTypes.TEXT,
 				allowNull: false,
 			},
-			breed_group:{
-				type: DataTypes.STRING,
-			},
-			temperament:{
-				type: DataTypes.STRING,
-			}
 		},
 		{ timestamps: false }
 	);

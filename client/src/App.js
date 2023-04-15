@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import Login from "./components/Login/Login";
+import Landing from "./components/Landing/Landing";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./components/Home/HomePage.jsx";
 import Detail from "./components/Detail/Detail";
@@ -13,7 +13,7 @@ function App() {
 		<div className="App">
 			{pathname !== '/' && <NavBar />}
 			<Routes>
-				<Route exact path={"/"} element={<Login/>} />
+				<Route exact path={"/"} element={<Landing/>} />
 				<Route exact path={"/dogs"} element={<HomePage/>} />
 				<Route exact path={"/detail/:id"} element={<Detail/>} />
 				<Route exact path={"/form"} element={<Form/>} />

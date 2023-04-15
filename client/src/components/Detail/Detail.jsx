@@ -14,14 +14,24 @@ const Detail = () => {
 	}, []);
 
 	return (
-		<div className="conteiner">
+	<>
+	{/* ID.
+Imagen.
+Nombre.
+Altura.
+Peso.
+Temperamentos.
+Años de vida. */}
+	<div className="conteiner">
 			<div>
 				<img src={dog.image} />
 			</div>
 			<p><span>{`Name: `}</span>{dog.name}</p>
 			<p><span>{`Temperament: `}</span>{dog.temperament}</p>
-			<p><span>{`Weigth: `}</span>{dog.weigth?.imperial}</p> 
+			<p><span>{`Weigth: `}</span>{dog.weigth?.metric}</p> 
 		</div>
+	</>
+		
 	);
 };
 

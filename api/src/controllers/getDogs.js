@@ -1,8 +1,7 @@
 const axios = require("axios");
-const { Dog } = require("../db");
+const { Dog , Temperament} = require("../db");
 
 const getDogs = async () => {
-	const db_dogs= await Dog.findAll()
 	const dogsApi = await axios.get("https://api.thedogapi.com/v1/breeds/");
 	const dogs = dogsApi.data.map((dog) => {
 		return {
@@ -13,9 +12,18 @@ const getDogs = async () => {
 			life_span: dog.life_span,
 			temperament: dog.temperament,
 			image: dog.image.url,
-			create:false,
+			create: false,
 		};
 	});
+
+	const db_dogs = await Dog.findAll({
+		include: {
+			model: Temperament,
+			attributes: ["name"],
+			through: { attributes: [] },
+		},
+	});
+
 	return [...db_dogs, ...dogs];
 };
 

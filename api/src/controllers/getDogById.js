@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { Dog } = require("../db");
+const { Dog,Temperament } = require("../db");
 const url_image = "https://cdn2.thedogapi.com/images/"
 
 const getDogById = async (idDog, src) => {
@@ -16,7 +16,13 @@ const getDogById = async (idDog, src) => {
 			image: dog.reference_image_id && `${url_image}${dog.reference_image_id}.jpg`
 		};
 	} else {
-		const dog = await Dog.findByPk(idDog);
+		const dog = await Dog.findByPk(idDog,{
+			include: {
+				model: Temperament,
+				attributes: ["name"],
+				through: { attributes: [] },
+			},
+		});
 		return dog;
 	}
 };
