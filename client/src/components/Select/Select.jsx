@@ -1,18 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { filterByTemp } from "../../Redux/actions";
 
-const Select = () => {
-  const favorites = useSelector((state) => state.myFavorites);
+const Select = ({dogs_page,temperaments}) => {
+  const myDogs = useSelector((state) => state.myDogs);
+  const dogs = useSelector((state) => state.dogs);
 	const dispatch = useDispatch();
 
 	const handleOrder = (event) => {
 		let orden = event.target.value;
-		dispatch();
+		// dispatch();
 	};
 
 	const handleFilter = (event) => {
-		let gender = event.target.value;
-		dispatch();
+		const dogsTemp = dogs.filter(dog=>dog.temperament && dog.temperament.includes(event.target.value))
+		dispatch(filterByTemp(dogsTemp))
 	};
   
   return (
@@ -48,14 +50,20 @@ const Select = () => {
     y por si su origen es de la API o de la base de datos 
     (creados por nosotros desde el formulario). */}
     <div>
+			<input type="radio" name="dog" id="" />
+			<label htmlFor="dog">My Dogs</label>
+			<br />
+			<input type="radio" name="dog" id="" />
+			<label htmlFor="dog">Other Dogs</label>
+			<br />
       <label htmlFor="filter">Temperaments</label>
-			<select
-				name="filter"
-				id=""
-				onChange={handleFilter}
-			>
-				<option value="All">All</option>
-        {/*Aca hago un map de los temperamentosw*/}
+			<select name="filter" onChange={handleFilter}>
+        {temperaments.map((temp)=>
+					    <option key={temp} value={temp}>
+
+						{temp}
+					</option>
+				)}
 			</select>
     </div>
       

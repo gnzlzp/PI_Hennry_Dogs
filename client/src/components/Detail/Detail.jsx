@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import style from './Detail.module.css'
 import axios from "axios";
+
 
 const Detail = () => {
 
@@ -22,14 +24,22 @@ Altura.
 Peso.
 Temperamentos.
 Años de vida. */}
-	<div className="conteiner">
-			<div>
-				<img src={dog.image} />
+	<div className={style.conteiner}>
+			{ !dog.name ? 
+			<div></div>
+:
+			<>
+				<div>
+					<img src={dog.image} className={style.img_dtl}/>
+				</div>
+				<p><span><b>Name: </b></span>{dog.name}</p>
+				<p><span><b>Temperament: </b></span>{dog.temperament}</p>
+				<p><span><b>Weigth: </b></span>{dog.weight?.metric} Kg / {dog.weight?.imperial} Pounds</p>
+			</>
+			
+		}
+		
 			</div>
-			<p><span>{`Name: `}</span>{dog.name}</p>
-			<p><span>{`Temperament: `}</span>{dog.temperament}</p>
-			<p><span>{`Weigth: `}</span>{dog.weigth?.metric}</p> 
-		</div>
 	</>
 		
 	);

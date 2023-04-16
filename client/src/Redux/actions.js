@@ -3,6 +3,8 @@ import axios from "axios";
 export const GET_ALL_DOGS = "GET_ALL_DOGS";
 export const GET_ALL_TEMPERAMENTS = "GET_ALL_TEMPERAMENTS";
 export const SEARCH_NAME = "SEARCH_NAME";
+export const FILTER_BY_TEMP = "FILTER_BY_TEMP";
+
 
 export const getAllDogs = () => {
 	try {
@@ -26,7 +28,20 @@ export const getAllTemperaments = () => {
 		throw Error ('Algo salio mal con temperaments')
 	}
 };
-
 export const searchName = (name) => {
-	return { type: SEARCH_NAME, payload: name };
+	try {
+		return async function (dispatch) {
+			const res = await axios.get(
+				`http://localhost:3001/dogs/name?name=${name}`
+			);
+			const dogName = res.data;
+			console.log(dogName);
+			return dispatch({ type: SEARCH_NAME, payload: dogName });
+		};
+	} catch (error) {
+		throw Error("Algo salio mal con nombres");
+	}
 };
+export const filterByTemp = (dogsTemp) => (
+	{ type: FILTER_BY_TEMP, payload: dogsTemp }
+)

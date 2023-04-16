@@ -1,0 +1,13 @@
+.conteiner{
+  position: relative;
+  top: 7%;
+  left: 40%;
+  width: 50%;
+}
+
+.img_dtl{
+  border-radius: 50%;
+  border: double 20px rgba(240, 167, 71, 0.658);
+  width: 100%
+}
+
