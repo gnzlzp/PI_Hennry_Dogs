@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 const getBreedByName = async (name) => {
 
 	const dogName = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`);
-	const dogsList = dogName.data
+		const dogsList = dogName.data
 	// let breed = "";
 	// breed = dogName.data[0].breed_group
 	// const dogsApi = await axios.get("https://api.thedogapi.com/v1/breeds/")
@@ -19,8 +19,7 @@ const getBreedByName = async (name) => {
 		  },
 		},
 	  });
-	
-	if(!dogName.data.length && !breeds_db.length){
+	if(!dogsList.length && !dogs_db.length){
 		throw Error ('Name not found')
 	}
 

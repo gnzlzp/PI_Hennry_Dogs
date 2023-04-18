@@ -32,7 +32,7 @@ export const searchName = (name) => {
 	try {
 		return async function (dispatch) {
 			const res = await axios.get(
-				`http://localhost:3001/dogs/name?name=${name}`
+				`http://localhost:3001/dogs/name?name=${name.toLowerCase()}`
 			);
 			const dogName = res.data;
 			console.log(dogName);

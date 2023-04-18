@@ -5,7 +5,7 @@ import Landing from "./components/Landing/Landing";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./components/Home/HomePage.jsx";
 import Detail from "./components/Detail/Detail";
-import Form from "./components/Form/Form";
+import Form2 from "./components/Form/Form2";
 
 function App() {
 	const {pathname} = useLocation()
@@ -16,7 +16,8 @@ function App() {
 				<Route exact path={"/"} element={<Landing/>} />
 				<Route exact path={"/dogs"} element={<HomePage/>} />
 				<Route exact path={"/detail/:id"} element={<Detail/>} />
-				<Route exact path={"/form"} element={<Form/>} />
+				{/* <Route exact path={"/form"} element={<Form/>} /> */}
+				<Route exact path={"/form"} element={<Form2/>} />
 			</Routes>
 		</div>
 	);
