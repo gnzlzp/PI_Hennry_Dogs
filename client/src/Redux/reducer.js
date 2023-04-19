@@ -1,5 +1,11 @@
-import { FILTER_BY_TEMP, GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, SEARCH_NAME } from "./actions";
-import axios from "axios";
+import {
+	FILTER_BY_TEMP,
+	GET_ALL_DOGS,
+	GET_ALL_TEMPERAMENTS,
+	SEARCH_NAME,
+	ORDER_BY_WEIGHT,
+	ORDER_BY_NAME,
+} from "./actions";
 
 const initialState = {
 	dogs: [],
@@ -27,11 +33,33 @@ const rootReducer = (state = initialState, action) => {
 				names: [...action.payload],
 				dogs_page: [...action.payload],
 			};
-			case FILTER_BY_TEMP:
+		case FILTER_BY_TEMP:
+			return {
+				...state,
+				dogs_page: [...action.payload],
+			};
+		case ORDER_BY_NAME:
+			if(action.payload === 'AscName'){
 				return {
 					...state,
-					dogs_page: [...action.payload],
-				};
+					dogs_page : [...state.dogs_page].sort((a,b)=>a.name.localeCompare(b.name))
+				}
+			} else {
+				return {
+					...state,
+					dogs_page : [...state.dogs_page].sort((a,b)=>b.name.localeCompare(a.name))
+				}
+			}
+		case ORDER_BY_WEIGHT:
+			if(action.payload === 'AscWeight'){
+				
+				return {
+					...state,
+					dogs_page : []
+				}
+			}else{
+
+			}
 		default:
 			return { ...state };
 	}

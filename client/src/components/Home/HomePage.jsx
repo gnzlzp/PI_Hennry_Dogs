@@ -10,7 +10,7 @@ import Galery from "../Galery/Galery";
 const HomePage = () => {
 	const dispatch = useDispatch();
 
-	useEffect(async () => {
+	useEffect(() => {
 		try {
 			dispatch(getAllDogs());
 			dispatch(getAllTemperaments());
@@ -41,7 +41,7 @@ const HomePage = () => {
 					<br />
 					<div>
 						{/* --------------FILTRADO------------------ */}
-						<Select dogs_page={dogs_page} temperaments={temperaments}/>
+						<Select show_dogs={show_dogs} temperaments={temperaments}/>
 						{/* ----------PAGINACION------------------- */}
 
 						<Botones

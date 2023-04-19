@@ -8,9 +8,7 @@ const Form2 = () => {
 
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		temperaments.length === 0 && dispatch(getAllTemperaments());
-	}, []);
+
 
 	const [error, setError] = useState({
 		name: "",
@@ -29,26 +27,40 @@ const Form2 = () => {
 		maxWeight: 0,
 		life_span: 15,
 		temperament: [],
+    temperamentId: [],
+    image:"que la url"
   })
+
+  const validate = (value) => {
+   if ( !value ){
+    setError({ ...error, name: "" })
+    return
+   }
+    /^[a-zA-Z\s]+$/.test(value)
+      ? setError({ ...error, name: "" })
+      : setError({ ...error, name: "Solo se admiten letras y espacios" });
+  };
+  
+	useEffect(() => {
+		temperaments.length === 0 && dispatch(getAllTemperaments());
+    validate(form.name)
+	}, [form.name]);
 
 const handleForm =  (event) => {
   const value =  event.target.value
   const property = event.target.name
-  const setValue = {...form,[property]:isNaN(value) ? value : Number(value)}
+  const setValue = {...form, [property]: value }
 
   // MANEJO EL NOMBRE
-  if(property === "name" || property === "life_span"){
-    setForm(setValue)
-}
-// MANEJO LA UNIDAD
-  if(property === "unit"){
-    if (property === "unit") {
-      const newValue = value === "imperial";
-      setForm({ ...form, [property]: newValue });
-    }
+  if (property === "name"){
+    setForm({...form, [property]: value })
+    validate(value)
   }
-// MANEJO LA ESTATURA Y PESO
 
+  // MANEJO EL TIEMPO DE VIDA
+  property === "life_span" && setForm(setValue)
+
+// MANEJO LA ESTATURA Y PESO
 if(property === "minHeight" || property === "minWeight" ){
   const valueMax = property === "minHeight" ? form.maxHeight : form.maxWeight
   const prop = property === "minHeight" ? "maxHeight" : "maxWeight"
@@ -68,49 +80,64 @@ if(property === "maxHeight" || property === "maxWeight"){
 // MANEJO TEMPERAMENTOS
 if(property === "temperament"){
   const tempSelect = form.temperament
+  const tempSelectId = form.temperamentId
+  const id = temperaments.indexOf(value)+1
   !tempSelect.includes(value) 
-  ? setForm({...form, [property]:[...tempSelect, value]}) 
-  : setForm({...form, [property]:tempSelect.filter((temp) => temp !== value)})
-  
+  ? setForm({...form, [property]:[...tempSelect, value], [`${property}Id`]:[...tempSelectId, id]}) 
+  : setForm({...form, [property]:tempSelect.filter((temp) => temp !== value), [`${property}Id`]:tempSelectId.filter((temp) => temp !== id) })
 }
 
-}
-const {name,minHeight,maxHeight,minWeight,maxWeight,life_span,temperament} = form
+// MANEJO LA URL DE LA IMAGEN
+if(property === "image") setForm(setValue)
+
+};
+
+
+const {name,minHeight,maxHeight,minWeight,maxWeight,life_span,temperamentId, image} = form
 const newDog = {
-  name,
-  height : `${minHeight} - ${maxHeight}`,
-  weight : `${minWeight} - ${maxWeight}`,
-  life_span,
-  temperament
+  name:name,
+  height : [minHeight, maxHeight],
+  weight : [minWeight, maxWeight],
+  life_span: life_span,
+  temperament: temperamentId,
+  image:image,
 }
-console.log(newDog);
+
+
 const handlePost = ()=>{
-  axios.post("http://localhost:3001/dogs/", newDog)
+  if(!form.minHeight || !form.maxHeight || !form.minWeight || !form.minWeight || !form.name.length || !form.temperament.length ) {
+    return alert('Complete the form')
+  }
+    axios.post("http://localhost:3001/dogs/", newDog)
+    .then(res => res.data)
+    .catch(error)
+
 }
   return (
-    <div style={{ margin: "10px", width: "90%", justifyContent: "center" }}>
+    <div style={{ margin: "10px", minWidth: "40%", maxWidth:"60%",justifyContent: "center" , backgroundColor:'yellow'}}>
 
     <div>
       <label htmlFor="name">Name: </label>
-			<input type="text" name="name" id="" value={form.name} onChange={handleForm} />
-      <br />
+			<input type="search" name="name" value={form.name} onChange={handleForm} />
+      
     </div>
-		{/* {error.name && <span>{error.name}</span>} */}
+		{error.name ? <span>{error.name}</span> : !form.name.length && <span>Put your dog name</span>}<br />
 
-    {/* UNIT */}
-    <label htmlFor="unit">Select unid</label><br />
+    {/* UNIT
+    <label htmlFor="unit">Select unit</label><br />
     <input type="radio" name="unit" id="" onChange={handleUnit} checked={unit} /> Imperial
 		<input type="radio" name="unit" id="" onChange={handleUnit} /> Metric
-    <br />
+    <br /> */}
     
+    {<p>A continuacion indique las carcteristicas de su perro <span>{`(no puede dejar los campos vacios)`}</span></p>}
     {/* HEIGHT */}
     <label htmlFor="minHeight">Min Height: </label>
     <input type="number" min={1} max={100} name="minHeight" value={minHeight} onChange={handleForm} style={{ width: "3rem" }}/>
-    {unit === true ? <span>Foots</span> : <span>Cm</span>}
+    {unit === true ? <span>Inchs</span> : <span>Cm</span>}
     <br />
     <label htmlFor="maxHeight">Max Height: </label>
     <input type="number" min={1} max={100} name="maxHeight" value={maxHeight} onChange={handleForm} style={{ width: "3rem" }} />
-    {unit === true ? <span>Foots</span> : <span>Cm</span>}
+    {unit === true ? <span>Inchs</span> : <span>Cm</span>}
     <br />
 
     {/* WEIGHT */}
@@ -122,7 +149,6 @@ const handlePost = ()=>{
     <input type="number" min={1} max={100} name="maxWeight" value={maxWeight} onChange={handleForm} style={{ width: "3rem" }} />
     {unit === true ? <span>Pound</span> : <span>Kg</span>}
     <br />
-
     {/* LIVE_SPAN */}
 			<label htmlFor="life_span">Life Span: </label>
 			<input type="range" min={1}	max={30} step={1} value={form.life_span} name="life_span" list="ticksmatks" onChange={handleForm} style={{ width: "10rem" }} />
@@ -141,16 +167,18 @@ const handlePost = ()=>{
 			<br />
 			{/* TEMPERAMENT */}
 			<label htmlFor="temperament">Temperament</label>
-			<select name="temperament" onClick={handleForm}>
-					{/* <option key={0} >{`Select/unselect \ntemperament`}</option> */}
-				{temperaments.map((temp,id) => (
-					<option key={id+1} value={temp}>{temp}</option>
+			<select name="temperament" onClick={handleForm} >
+				{temperaments.map((temp) => (
+					<option value={temp}>{temp} </option>
 				))}
 			</select>
+      {!temperamentId.length && <p>Select almost one temperament</p>}
 			<br />
+     Put Url image<input type="url" name="image" placeholder='http://' value={form.image} onChange={handleForm}/>
 			<br />
+      <hr />
 			<div
-				style={{textAlign: "center", backgroundColor: "grey", width: "60%", margin: "auto", }}>
+				style={{textAlign: "center", width: "60%", margin: "auto", }}>
 				<table style={{ justifyContent: "center" }}>
 					<thead>
 						<tr>
@@ -173,8 +201,8 @@ const handlePost = ()=>{
 					</tr>
 				</table>
 			</div>
-			<br />
-			<button onClick={handlePost}>Create</button>
+      <hr />
+			<button onClick={handlePost} >Create</button>
     </div>
   )
 }
