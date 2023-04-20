@@ -1,12 +1,11 @@
 
 .card{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  max-width: 150px;
-  min-height: 25vh;
-  box-sizing: border-box;
+  width: 90%;
+  height: auto;
   background-color: rgba(199, 154, 122, 1);
   opacity: 0.8;
   font-size: 0.9em;
@@ -15,6 +14,7 @@
   word-wrap: break-word;
   margin: 1rem;
   text-align: top;
+  box-sizing: border-box;
 }
 
 .imgDog{
@@ -26,3 +26,5 @@
   object-fit: cover;
   object-position: center;
 }
+
+

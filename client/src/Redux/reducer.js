@@ -78,7 +78,7 @@ const rootReducer = (state = initialState, action) => {
 			}else{
 				return {
 					...state,
-					dogs_page : [...state.dogs].sort((a,b)=>a.weight.length && b.weight[0]-a.weight[0])
+					dogs_page : [...state.dogs].sort((a,b)=>a.weight.length && b.weight[1]-a.weight[1])
 				}
 			}
 		default:

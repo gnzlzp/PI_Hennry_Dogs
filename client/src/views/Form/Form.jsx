@@ -113,7 +113,6 @@ const Form = () => {
 		temperamet: tempSelect,
 	});
 
-	console.log(form);
 
 	const handlePost = () => {
 		//hago click y mando una peticion axios.post(http//:localhost:3001 , form)

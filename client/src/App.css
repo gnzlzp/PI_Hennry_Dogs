@@ -1,24 +1,28 @@
 
 .App {
-  background-color: grey;
   background-image: url(./images/dog-main.jpg);
   background-size: cover;
-  height: 100vh;
+  background-attachment: fixed;
+  min-height: 100vh;
   text-align: center;
+  /* vertical-align: middle; */
   display: flex;
+  /* justify-content: center; */
   flex-direction: column;
+
+
+  /* font-size: calc(1px + 2vmin); */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.compNav{
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
   background-color: #282c34;
@@ -31,15 +35,3 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

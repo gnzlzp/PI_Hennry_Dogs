@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import imgDog from "./50f.png";
+import imgDog from "../../images/firulais.png";
 // import { useDispatch } from "react-redux";
 // import { getAllDogs, getAllTemperaments } from "../../Redux/actions";
 // import axios from "axios";
@@ -22,8 +22,8 @@ const Login = () => {
 	};
 
 	return (
-		<div>
-			<div>
+		<div style={{height:'100vh'}} >
+			<div style={{justifyContent:'end'}}>
 				<img src={imgDog} alt="" style={{ width: "30%" }} />
 			</div>
 			<Link to="/dogs">

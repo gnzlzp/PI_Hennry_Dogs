@@ -7,30 +7,47 @@ const Card = ({ dog }) => {
 	if (Temperaments)
 		var temp_db = Temperaments.map(({ name }) => name).join(", ");
 	return (
+		<>
+			<label htmlFor="">Name : {name} ||| Id: {id}</label>
 		<div className={style.card}>
-			<Link to={`/detail/${id}`}>
-				<img className={style.imgDog} src={image} alt={name} />
-			</Link>
-			<p>
-				<b>Id #: </b> {id}
-			</p>
-			<p>
-				<b>Name: </b> {name}
-			</p>
-				<p>
-					<b>Temperament:</b> {temperament ? temperament : temp_db}
-				</p>
-		
-			<p>
+			{/* <div className={style.identidy}>
+				<span>
+					<b>Name: </b> {name}
+				</span>
+				<span>
+					<b>Id #: </b> {id}
+				</span>
+			</div> */}
+
+			<div>
+				<Link to={`/detail/${id}`}>
+					<img className={style.imgDog} src={image} alt={name} />
+				</Link>
+			</div>
+
+
+		<p>
 				<b>Weight:</b>{" "}
-				{typeof weight === 'string'  ? `${[weight.split(', ')].join(' - ')} Pounds` : `${weight.join(' - ')} Pounds`	}
+				{typeof weight === "string"
+					? `${[weight.split(", ")].join(" - ")} Pounds`
+					: `${weight.join(" - ")} Pounds`}
 			</p>
 
 			<p>
 				<b>Height:</b>{" "}
-				{typeof height === 'string'  ? `${[height.split(', ')].join(' - ')} Inchs` : `${height.join(' - ')} Inchs`	}
+				{typeof height === "string"
+					? `${[height.split(", ")].join(" - ")} Inchs`
+					: `${height.join(" - ")} Inchs`}
 			</p>
+
+
+			<p>
+				<b>Temperament:</b> {temperament ? temperament : temp_db}
+			</p>
+
+			
 		</div>
+					</>
 	);
 };
 

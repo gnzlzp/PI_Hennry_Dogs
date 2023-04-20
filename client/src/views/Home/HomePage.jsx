@@ -2,10 +2,10 @@ import style from "./HomePage.module.css";
 import { getAllDogs, getAllTemperaments } from "../../Redux/actions";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SearchBar from "../SearchBar/SearchBar";
-import Botones from "../Botones/Botones";
-import Select from "../Select/Select";
-import Galery from "../Galery/Galery";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Botones from "../../components/Botones/Botones";
+import Select from "../../components/Select/Select";
+import Galery from "../../components/Galery/Galery";
 
 const HomePage = () => {
 	const dispatch = useDispatch();
