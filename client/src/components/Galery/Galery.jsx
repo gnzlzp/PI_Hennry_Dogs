@@ -4,7 +4,9 @@ import Card from "../Card/Card";
 const Galery = ({ show_dogs }) => {
 	return (
 		<>
-			{show_dogs.map((dog, index) => {
+			{
+			show_dogs.length &&
+			show_dogs.map((dog, index) => {
 				return <Card dog={dog} key={index} />;
 			})}
 		</>

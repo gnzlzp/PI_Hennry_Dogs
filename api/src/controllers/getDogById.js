@@ -9,8 +9,8 @@ const getDogById = async (idDog, src) => {
 		return  {
 			id: dog.id,
 			name: dog.name,
-			weight: dog.weight,
-			height: dog.height,
+			weight: dog.weight.imperial,
+			height: dog.height.imperial,
 			life_span: dog.life_span,
 			temperament: dog.temperament,
 			image: dog.reference_image_id && `${url_image}${dog.reference_image_id}.jpg`
@@ -30,3 +30,4 @@ const getDogById = async (idDog, src) => {
 module.exports = {
 	getDogById,
 };
+

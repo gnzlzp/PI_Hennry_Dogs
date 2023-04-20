@@ -3,8 +3,11 @@ import {
 	GET_ALL_DOGS,
 	GET_ALL_TEMPERAMENTS,
 	SEARCH_NAME,
-	ORDER_BY_WEIGHT,
+	GET_MY_DOGS,
+	GET_OTHER_DOGS,
 	ORDER_BY_NAME,
+	ORDER_BY_WEIGHT,
+	GET_JOIN_DOGS,
 } from "./actions";
 
 const initialState = {
@@ -33,6 +36,21 @@ const rootReducer = (state = initialState, action) => {
 				names: [...action.payload],
 				dogs_page: [...action.payload],
 			};
+		case GET_MY_DOGS:
+			return {
+				...state,
+				dogs_page : state.dogs.filter(dog=>dog.create === true)
+			};
+		case GET_OTHER_DOGS:
+			return {
+				...state,
+				dogs_page : state.dogs.filter(dog=>dog.create === false)
+			};
+			case GET_JOIN_DOGS:
+				return {
+					...state,
+					dogs_page : state.dogs
+				};
 		case FILTER_BY_TEMP:
 			return {
 				...state,
@@ -51,14 +69,17 @@ const rootReducer = (state = initialState, action) => {
 				}
 			}
 		case ORDER_BY_WEIGHT:
-			if(action.payload === 'AscWeight'){
-				
+			if(action.payload === 'AscWeight'){		
+
 				return {
 					...state,
-					dogs_page : []
+					dogs_page : [...state.dogs].sort((a,b)=>a.weight.length && a.weight[0]-b.weight[0])
 				}
 			}else{
-
+				return {
+					...state,
+					dogs_page : [...state.dogs].sort((a,b)=>a.weight.length && b.weight[0]-a.weight[0])
+				}
 			}
 		default:
 			return { ...state };

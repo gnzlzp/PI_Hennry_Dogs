@@ -1,7 +1,7 @@
 const { createDog } = require("../controllers/postNewDog");
 
 const postNewDogHandler = async (req, res) => {
-	const { name, height, weight, life_span, temperament, image} = req.body;
+	const { name, height, weight, life_span, temperament, image, create} = req.body;
 	try {
 		const newDog = await createDog(
 			name,
@@ -9,9 +9,10 @@ const postNewDogHandler = async (req, res) => {
 			weight,
 			life_span,
 			temperament,
-			image
+			image,
+			create
 			);
-			console.log(newDog)
+			console.log(req.body)
 		res.status(201).json(newDog);
 	} catch (error) {
 		res.status(400).json({ error: error.message });

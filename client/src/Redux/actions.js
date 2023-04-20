@@ -7,7 +7,9 @@ export const FILTER_BY_TEMP = "FILTER_BY_TEMP";
 export const POST_NEW_DOG = "POST_NEW_DOG"
 export const ORDER_BY_NAME = "ORDER_BY_NAME"
 export const ORDER_BY_WEIGHT = "ORDER_BY_WEIGHT"
-
+export const GET_MY_DOGS = "GET_MY_DOGS"
+export const GET_OTHER_DOGS = "GET_OTHER_DOGS"
+export const GET_JOIN_DOGS = "GET_JOIN_DOGS"
 
 export const getAllDogs = () => {
 	try {
@@ -44,12 +46,21 @@ export const searchName = (name) => {
 		throw Error("Algo salio mal con nombres");
 	}
 };
+export const getMyDogs = ()=>(
+	{type : GET_MY_DOGS}
+);
+export const getOtherDogs = ()=>(
+	{type : GET_OTHER_DOGS}
+);
+export const getJoinDogs = ()=>(
+	{type : GET_JOIN_DOGS}
+);
 export const filterByTemp = (dogsTemp) => (
 	{ type: FILTER_BY_TEMP, payload: dogsTemp }
-)
+);
 export const orderByName = (value)=>(
 	{type: ORDER_BY_NAME, payload: value}
-)
+);
 export const orderByWeight = (value)=>(
 	{type: ORDER_BY_WEIGHT, payload: value}
-)
+);

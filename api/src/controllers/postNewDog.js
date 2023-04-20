@@ -7,6 +7,7 @@ const createDog = async (
 	life_span,
 	temperament,
 	image,
+	create
 ) => {
 	if (name && height && weight && life_span && image) {
 		const newDog = await Dog.create({
@@ -15,6 +16,7 @@ const createDog = async (
 			height,
 			life_span,
 			image,
+			create
 		});
 
 		// if (temperament && temperament.length > 0) {

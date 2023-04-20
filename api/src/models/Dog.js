@@ -17,21 +17,26 @@ module.exports = (sequelize) => {
 				allowNull: false,
 			},
 			height: {
-				type: DataTypes.DECIMAL,
+				type: DataTypes.ARRAY(DataTypes.STRING),
 				allowNull: false,
 			},
 			weight: {
-				type: DataTypes.DECIMAL,
+				type: DataTypes.ARRAY(DataTypes.STRING),
 				allowNull: false,
 			},
 			life_span: {
-				type: DataTypes.STRING,
+				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
 			image: {
-				type: DataTypes.TEXT,
+				type: DataTypes.STRING,
 				allowNull: false,
 			},
+			create:{
+				type : DataTypes.BOOLEAN,
+				defaultValue : true,
+			}
+
 		},
 		{ timestamps: false }
 	);

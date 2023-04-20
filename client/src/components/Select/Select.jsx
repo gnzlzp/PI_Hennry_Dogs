@@ -56,9 +56,9 @@ const Select = ({show_dogs,temperaments}) => {
 
       <label htmlFor="filter">Temperaments</label>
 			<select name="filter" onChange={handleFilter}>
+				<option defaultSelect={true} disabled={true}>Choose a temperament</option>
         {temperaments.map((temp)=>
-					    <option key={temp} value={temp}>
-
+					<option key={temp} value={temp}>
 						{temp}
 					</option>
 				)}

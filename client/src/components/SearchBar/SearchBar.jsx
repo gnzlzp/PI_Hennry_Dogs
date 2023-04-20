@@ -1,40 +1,49 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {searchName} from '../../Redux/actions'
+import {getJoinDogs, getMyDogs, getOtherDogs, searchName} from '../../Redux/actions'
 
 const SearchBar = () => {
-	const [name, setName] =  useState('')
-	const [checked, setChecked] = useState(true)
-	const [searchIn, setSearchIn] =  useState('allDogs')
-
+	const [nameDog, setNameDog] =  useState('')
+	const [hasValue, setHasValue] = useState(true)
 	const dispatch = useDispatch()
 
 	const handleChange=(event)=>{
-		setName(event.target.value)
-	}
-	const onSearch =(searchIn)=>{
-		if(searchIn === 'allDogs') dispatch(searchName(name))
-		if(searchIn === 'myDogs') console.log('aqui busco a los perros de la db');
-		if(searchIn === 'otherDogs') console.log('aqui busco a los de la store');
-		setName('')
-	}
-	const handleCheck = (event) =>{
 		const value = event.target.value
-		value !== 'allDogs' ? setChecked(false): setChecked(true)
-		setSearchIn(value) 
+		value.length > 0 ? setHasValue(false) : setHasValue(true) 
+		setNameDog(value)
+
+	}
+
+	const onSearch =(event)=>{
+		const name = event.target.name
+		switch (name) {
+			case 'searchDog':
+				dispatch(searchName(nameDog));
+				setNameDog('')
+				setHasValue(true) 
+				break;
+			case 'myDogs':
+				dispatch(getMyDogs())
+				break;
+			case 'otherDogs':
+				dispatch(getOtherDogs())
+				break;
+			case 'joinDogs':
+				dispatch(getJoinDogs())
+				break;
+			default:
+				break;
+		}
 	}
 
 	return (
 		<div>
-			<input type="radio" name="dog" value='myDogs' onClick={handleCheck}/>
-			<label htmlFor="dog">My Dogs</label>
-			<input type="radio" name="dog" value='otherDogs' onClick={handleCheck}/>
-			<label htmlFor="dog">Other Dogs</label>
-			<input type="radio" name="dog" value='allDogs' checked={checked} onClick={handleCheck} />
-			<label htmlFor="dog">All Dogs</label>
+		<button name="myDogs" onClick={onSearch} >My Dogs</button>
+			<button name="otherDogs" onClick={onSearch}>Other Dogs</button>
+			<button name="joinDogs" onClick={onSearch}>All Dogs</button>
 			<br />
-			<input type="text" name="input" value={name} onChange={handleChange} searchIn={searchIn} autoFocus={true}/>
-			<button onClick={()=>onSearch(searchIn)}>Search Dog</button>
+			<input type="text" name="input" value={nameDog} onChange={handleChange} autoFocus={true}/>
+			<button name={'searchDog'} onClick={onSearch} disabled={hasValue}>Search Dog</button>
 		</div>
 	);
 };

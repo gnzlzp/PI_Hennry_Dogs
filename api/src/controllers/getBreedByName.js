@@ -1,11 +1,28 @@
 const axios = require("axios");
 const {Dog} = require("../db")
 const { Op } = require("sequelize");
+const url_image = "https://cdn2.thedogapi.com/images/"
+
 
 const getBreedByName = async (name) => {
-
 	const dogName = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`);
-		const dogsList = dogName.data
+	const dogsData = dogName.data
+
+	const dogsList = dogsData.map((dog) => {
+		const weights = dog.weight.imperial.includes(' – ') ? dog.weight.imperial.split(' – ') : dog.weight.imperial.split(' - ')
+		const heights = dog.height.imperial.split (' - ')
+	return {
+			id: dog.id,
+			name: dog.name,
+			weight: weights,
+			height: heights,
+			life_span: dog.life_span,
+			temperament: dog.temperament,
+			image: `${url_image}${dog.reference_image_id}.jpg`,
+			create: false,
+		};
+	});
+
 	// let breed = "";
 	// breed = dogName.data[0].breed_group
 	// const dogsApi = await axios.get("https://api.thedogapi.com/v1/breeds/")
