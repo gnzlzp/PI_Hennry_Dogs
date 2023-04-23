@@ -1,3 +1,4 @@
+import style from "./Select.module.css"
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByTemp, orderByName, orderByWeight } from "../../Redux/actions";
@@ -18,16 +19,18 @@ const Select = ({show_dogs,temperaments}) => {
 };
 
 	const handleFilter = (event) => {
-		const dogsTemp = dogs.filter(dog=>dog.temperament && dog.temperament.includes(event.target.value))
-		dispatch(filterByTemp(dogsTemp))
+		const dogFilt = dogs.filter( dog => dog.Temperaments && dog.Temperaments.find( temp => temp.name === event.target.value ) )
+		const dogsTemp = dogs.filter(dog => dog.temperament && dog.temperament.includes( event.target.value )	)
+		dispatch(filterByTemp([...dogFilt, ...dogsTemp]))
 	};
   
   return (
 		<>
     {/* ORDEN ALFABETICO */}
     <div>
-      <label htmlFor="order_name">Orden Name</label>
+      <label  className={style.label}  htmlFor="order_name">Orden Name</label>
 			<select
+				className={style.select}
         name="order_name"
 				onClick={handleOrder}
 			> 
@@ -38,8 +41,9 @@ const Select = ({show_dogs,temperaments}) => {
 
     {/* ORDEN POR PESO */}
     <div>
-      <label htmlFor="order_weight">Order weight</label>
+      <label  className={style.label}  htmlFor="order_weight">Order weight</label>
 			<select
+				className={style.select}
         name="order_weight"
 				onClick={handleOrder}
 			> 
@@ -49,19 +53,18 @@ const Select = ({show_dogs,temperaments}) => {
     </div>
     
     {/* FILTRADO POR TEMPERAMENTO */}
-    {/* Botones/Opciones para filtrar por temperamentos, 
-    y por si su origen es de la API o de la base de datos 
-    (creados por nosotros desde el formulario). */}
     <div>
 
-      <label htmlFor="filter">Temperaments</label>
-			<select name="filter" onChange={handleFilter}>
-				<option defaultSelect={true} disabled={true}>Choose a temperament</option>
-        {temperaments.map((temp)=>
-					<option key={temp} value={temp}>
-						{temp}
-					</option>
-				)}
+      <label className={style.label} htmlFor="filter">Temperaments</label>
+			<select name="filter" 
+				className={style.select}
+				onChange={handleFilter}>
+					<option defaultSelect={true} disabled={true}>Choose a temperament</option>
+        	{temperaments.map((temp)=>
+						<option key={temp} value={temp}>
+							{temp}
+						</option>
+					)}
 			</select>
     </div>
       

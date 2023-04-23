@@ -1,13 +1,86 @@
-.conteiner{
-  position: relative;
-  top: 7%;
-  left: 40%;
-  width: 50%;
+
+
+
+.container {
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	grid-template-rows: repeat(autofill, 1fr);
+}
+.img {
+	margin-top: 20px;
+  grid-column-start: 5;
+  grid-column-end: 10;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  /* max-height: 800px; */
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.img_dtl{
-  border-radius: 50%;
-  border: double 20px rgba(240, 167, 71, 0.658);
-  width: 100%
+.img_dtl {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  /* border: double 20px rgba(240, 167, 71, 0.658); */
+  box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+}
+
+.img_dtl img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(10px);
+}
+
+.name{
+  margin-top : -30px;
+	grid-column-start: 5;
+	grid-column-end: 11;
+	grid-row-start: 1;
+  z-index: 2;
+  font-size: 3rem;
+	color : rgb(218, 122, 32);
+	text-shadow: 0px 0px 5px rgb(0, 0, 0);
+
+}
+
+.message{
+	margin-top: 20px;
+	grid-column-start: 3;
+	grid-column-end: 10;
+	grid-row-start: 6;
+	grid-row-end: 8;
+	font-size: 1.8rem;
+	text-align: justify;
+}
+.message p {
+	color : #f7f4f4;
+	text-shadow: 0px 0px 5px rgb(0, 0, 0);
+
+}
+.message p span.name{
+	color : goldenrod;
+	font-size: larger;
+}
+.message p span.temperament{
+	font-size: larger;
+
+	color : rgb(63, 202, 195);
+}
+
+.message p span.measure{
+	font-size: larger;
+	color : rgb(63, 202, 195);
+
 }
 

@@ -10,7 +10,9 @@ import {
 	GET_JOIN_DOGS,
 } from "./actions";
 
+
 const initialState = {
+	images: [],
 	dogs: [],
 	dogs_page: [],
 	temperaments: [],
@@ -73,12 +75,12 @@ const rootReducer = (state = initialState, action) => {
 
 				return {
 					...state,
-					dogs_page : [...state.dogs].sort((a,b)=>a.weight.length && a.weight[0]-b.weight[0])
+					dogs_page : [...state.dogs_page].sort((a,b)=>a.weight.length && a.weight[0]-b.weight[0])
 				}
 			}else{
 				return {
 					...state,
-					dogs_page : [...state.dogs].sort((a,b)=>a.weight.length && b.weight[1]-a.weight[1])
+					dogs_page : [...state.dogs_page].sort((a,b)=>a.weight.length && b.weight[1]-a.weight[1])
 				}
 			}
 		default:

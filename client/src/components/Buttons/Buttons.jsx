@@ -1,3 +1,4 @@
+import style from "./Button.module.css"
 import React from "react";
 
 const Botones = ({ totalPages, currentPage, setCurrentPage}) => {
@@ -19,17 +20,16 @@ const Botones = ({ totalPages, currentPage, setCurrentPage}) => {
 		}
 	};
 	return (
-		<div>
-			<button onClick={handlePreviousPage}>Previous</button>
-			<br />
-			<button onClick={handleNextPage}>Next</button>
-			<br />
-
+		<div className={style.btnDiv}>
+			<button className={style.btnP} onClick={handlePreviousPage}>Previous</button>
+		
 			{[...Array(totalPages)].map((_, index) => (
-				<button key={index} onClick={() => handlePageChange(index + 1)}>
+				<button className={style.btn} key={index} onClick={() => handlePageChange(index + 1)}>
 					{index + 1}
 				</button>
 			))}
+
+			<button className={style.btnN} onClick={handleNextPage}>Next</button>
 		</div>
 	);
 };

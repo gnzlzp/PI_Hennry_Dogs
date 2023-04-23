@@ -3,21 +3,13 @@ import { getAllDogs, getAllTemperaments } from "../../Redux/actions";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import Botones from "../../components/Botones/Botones";
+import Buttons from "../../components/Buttons/Buttons";
 import Select from "../../components/Select/Select";
 import Galery from "../../components/Galery/Galery";
 
 const HomePage = () => {
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		try {
-			dispatch(getAllDogs());
-			dispatch(getAllTemperaments());
-		} catch (error) {
-			throw Error("Algo salio mal");
-		}
-	}, []);
+	const [isMounted, setIsMounted] = useState(false);
 
 	const ITEMS_PER_PAGE = 8; // número de elementos por página
 	const [currentPage, setCurrentPage] = useState(1); // estado para la página actual
@@ -33,30 +25,44 @@ const HomePage = () => {
 		currentPage * ITEMS_PER_PAGE
 	);
 
+	useEffect(() => {
+		setIsMounted(true);
+		dispatch(getAllDogs()); // que haga el dispatch si la longitud de dogs cambio
+		!temperaments.length && dispatch(getAllTemperaments());
+	}, []);
 	return (
 		<>
-			<div style={{ display: "flex", width: "100%" }}>
-				<section style={{ minWidth: "35%", height: "500px" }}>
-					<SearchBar style={{ width: "auto" }} />
+			<div style={{ display: "flex", width: "100%" }} >
+				<section className={style.conteinerSelectors}>
+						{/* --------------BUSQUEDA------------------ */}
+					<div className={style.search} >
+						<SearchBar  currentPage={currentPage}
+						setCurrentPage={setCurrentPage}/>
 					<br />
-					<div>
+					</div>
 						{/* --------------FILTRADO------------------ */}
-						<Select show_dogs={show_dogs} temperaments={temperaments}/>
+					<div className={style.select} >
+						<Select 
+						show_dogs={show_dogs} 
+						temperaments={temperaments} 
+						currentPage={currentPage}
+						setCurrentPage={setCurrentPage}
+						/>
+					</div>
 						{/* ----------PAGINACION------------------- */}
-
-						<Botones
+					<div className={style.main_btns}>
+						<Buttons
 							totalPages={totalPages}
 							currentPage={currentPage}
 							setCurrentPage={setCurrentPage}
 						/>
-
-						<br />
 					</div>
+						<br />
 				</section>
 
-				<section style={{ display: "flex", width: "100%", display:'inline-flex'}}>
-					<div className={style.conteiner}>
-						<Galery show_dogs={show_dogs} />
+				<section>
+					<div className={style.conteinerGalery}>
+						<Galery show_dogs={show_dogs} isMounted={isMounted} />
 					</div>
 				</section>
 			</div>

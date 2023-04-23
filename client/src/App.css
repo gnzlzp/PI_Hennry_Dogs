@@ -14,14 +14,17 @@
   /* font-size: calc(1px + 2vmin); */
 }
 
-.compNav{
+/* .compNav{
+
+  
+
   box-sizing: border-box;
 
   display: flex;
   justify-content: center;
   width: 80%;
   margin: 0 auto;
-}
+} */
 
 
 .App-header {

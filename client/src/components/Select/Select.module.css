@@ -1,0 +1,39 @@
+.label{
+  color:rgb(182, 146, 47);
+  margin-right: 0.5rem;
+  text-shadow:     
+  -1px -1px 0 #000,  
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;;
+  font-size: 1.4rem;
+}
+select option:checked {
+  background-color: rgba(187, 115, 67, 0.623);
+  border: none;
+  outline: none;
+  border-radius: 5px;
+
+}
+
+select option {
+  background-color: rgba(107, 27, 27, 0.438);
+  color: rgb(42, 117, 187);
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+
+
+}
+
+select {
+  background-color: rgba(255, 255, 255, 0.438);
+  border: none;
+  color: rgb(42, 117, 187);
+  font-weight: bold;
+  font-style: oblique;
+  outline: none;
+  border-radius: 5px;
+  height: 1.4rem;
+}
