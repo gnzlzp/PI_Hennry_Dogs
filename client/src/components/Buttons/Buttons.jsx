@@ -20,11 +20,11 @@ const Botones = ({ totalPages, currentPage, setCurrentPage}) => {
 		}
 	};
 	return (
-		<div className={style.btnDiv}>
+		<div className={style.btnDiv}  data-page={currentPage} data-total={totalPages}>
 			<button className={style.btnP} onClick={handlePreviousPage}>Previous</button>
 		
 			{[...Array(totalPages)].map((_, index) => (
-				<button className={style.btn} key={index} onClick={() => handlePageChange(index + 1)}>
+				<button className={style.btn} key={index} onClick={() => handlePageChange(index + 1)}  >
 					{index + 1}
 				</button>
 			))}

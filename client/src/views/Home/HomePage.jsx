@@ -9,7 +9,7 @@ import Galery from "../../components/Galery/Galery";
 
 const HomePage = () => {
 	const dispatch = useDispatch();
-	const [isMounted, setIsMounted] = useState(false);
+	// const [isMounted, setIsMounted] = useState(false);
 
 	const ITEMS_PER_PAGE = 8; // número de elementos por página
 	const [currentPage, setCurrentPage] = useState(1); // estado para la página actual
@@ -26,10 +26,11 @@ const HomePage = () => {
 	);
 
 	useEffect(() => {
-		setIsMounted(true);
+		// setIsMounted(true);
 		dispatch(getAllDogs()); // que haga el dispatch si la longitud de dogs cambio
 		!temperaments.length && dispatch(getAllTemperaments());
 	}, []);
+	
 	return (
 		<>
 			<div style={{ display: "flex", width: "100%" }} >
@@ -62,7 +63,7 @@ const HomePage = () => {
 
 				<section>
 					<div className={style.conteinerGalery}>
-						<Galery show_dogs={show_dogs} isMounted={isMounted} />
+						<Galery show_dogs={show_dogs} />
 					</div>
 				</section>
 			</div>

@@ -1,3 +1,4 @@
+import style from "./SearchBar.module.css"
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -42,25 +43,30 @@ const SearchBar = ({currentPage , setCurrentPage}) => {
 	};
 
 	return (
-		<div>
-			<button name="myDogs" onClick={onSearch}>
+		<div className={style.btnDiv}>
+			<h2>Select</h2>
+			<button className={style.btn} name="myDogs" onClick={onSearch}>
 				My Dogs
 			</button>
-			<button name="otherDogs" onClick={onSearch}>
+			<button className={style.btn} name="otherDogs" onClick={onSearch}>
 				Other Dogs
 			</button>
-			<button name="joinDogs" onClick={onSearch}>
+			<button className={style.btn} name="joinDogs" onClick={onSearch}>
 				All Dogs
 			</button>
 			<br />
+			<h2>
+				Search dog by name: 
+			</h2>
 			<input
+				className={style.input}
 				type="text"
 				name="input"
 				value={nameDog}
 				onChange={handleChange}
 				autoFocus={true}
 			/>
-			<button name={"searchDog"} onClick={onSearch} disabled={hasValue}>
+			<button  className={style.btn}  name={"searchDog"} onClick={onSearch} disabled={hasValue}>
 				Search Dog
 			</button>
 		</div>

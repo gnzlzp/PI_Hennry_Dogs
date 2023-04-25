@@ -25,8 +25,8 @@
   bottom: 1rem; */
   z-index: 2;
   color: rgb(255, 255, 255);
-  text-shadow: 0px 0px 12px rgb(235, 0, 0);
-  font-size: 1.2rem;
+  text-shadow: 2px 2px 5px rgb(235, 0, 0);
+  font-size: 1.4rem;
 }
 .id{
   grid-column-start: 4;
@@ -60,8 +60,9 @@
 .weight > p,
 .height > p
 {
+  font-size: 1.2rem;
   color: rgb(78, 211, 204);
-  text-shadow: 0px 0px 12px black;
+  text-shadow: 0px 0px 5px black;
 }
 
 

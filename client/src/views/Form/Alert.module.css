@@ -1,5 +1,7 @@
-.alert-container {
+.alert_container {
   position: fixed;
+  min-height: 70vh;
+  min-width: 50%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -10,17 +12,52 @@
   z-index: 9999;
 }
 
-.alert-message {
-  font-size: 1.2rem;
+.alert_container p {
+  font-weight: bold;
+}
+.alert_container p span{
+  font-weight: lighter;
+  color: coral;
+}
+.alert_message {
+  font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
-
-.alert-button {
-  background-color: #000;
+.alert_button {
+  background-color: #685757;
   color: #fff;
   border: none;
   padding: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
+  margin: 5px 15px;
+}
+.alert_button:hover {
+  background-color: #32797e;
+  color: #fff;
+  box-shadow: 0px 0px 12px coral;
+
+}
+.alert_button:active {
+  background-color: #685757;
+  color: #53c75c;
+  box-shadow: 0px 0px 12px rgb(61, 172, 153);
+}
+.btn{
+  height: 1.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(249, 249, 250);
+  background-color: rgb(98, 156, 173);
+}
+.btn:hover{
+  cursor: pointer;
+}
+.btn:active{
+  background-color: rgb(26, 101, 124);
+}
+.img{
+  width: 150px;
+  height: 150px;
 }

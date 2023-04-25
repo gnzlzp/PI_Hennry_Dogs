@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { createTemperaments } = require("./createTemperaments");
+const Temperament = require("../models/Temperament");
 
 
 const getTemperaments = async () => {
@@ -21,7 +22,6 @@ const getTemperaments = async () => {
 	});
 
 	createTemperaments(temperaments.sort())
-
 	return temperaments;
 };
 

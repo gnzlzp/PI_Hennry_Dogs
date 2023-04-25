@@ -1,4 +1,7 @@
-
+@font-face {
+  font-family: Pacifico;
+  src: url(./Fonts/Pacifico-Regular.ttf);
+}
 .App {
   background-image: url(./images/dog-main.jpg);
   background-size: cover;
@@ -9,7 +12,7 @@
   display: flex;
   /* justify-content: center; */
   flex-direction: column;
-
+  font-family: Pacifico;
 
   /* font-size: calc(1px + 2vmin); */
 }

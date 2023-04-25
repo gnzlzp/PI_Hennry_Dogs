@@ -1,163 +1,92 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllTemperaments } from "../../Redux/actions";
+import style from "./Form.module.css"
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllTemperaments } from '../../Redux/actions';
+import axios from 'axios';
+import Alert from "./Alert";
+import handleForm from "./handlers/handleForm";
+import handleValidate from "./handlers/handleValidate";
+import handlePost from "./handlers/handlePost";
 
 const Form = () => {
-
-	// GLOBAL STATE TEMP
-	const temperaments = useSelector((state) => state.temperaments);
-
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		!temperaments.length && dispatch(getAllTemperaments());
-	}, []);
+  
+  const temperaments = useSelector((state) => state.temperaments);
 
 	const [error, setError] = useState({
 		name: "",
 	});
 
-	// INPUT NAME
-	const [nameDog, setNameDog] = useState("");
-	const handleName = (event) => {
-		setNameDog(event.target.value);
-		validate();
+  const validate = (value) => handleValidate(value, error, setError)
 
-		// if(nameDog)	/^[a-zA-Z\s]+$/.test(event.target.value)
-		// ? setError({...error,name:''})
-		// : setError({...error,name:'solo se admiten letras'})
-	};
+  const [form, setForm] = useState({
+    name: "",
+		minHeight: 0,
+		maxHeight: 0,
+    minWeight: 0,
+		maxWeight: 0,
+		life_span: 15,
+		temperament: [],
+    temperamentId: [],
+    image:"",
+		disabled : true
+  })
 
-	const validate = () => {
-		if (nameDog)
-			/^[a-zA-Z\s]+$/.test(nameDog)
-				? setError({ ...error, name: "" })
-				: setError({ ...error, name: "solo se admiten letras" });
-	};
+	const updateForm  = (event) => handleForm(event, setForm, form, validate, temperaments)
+  
+  useEffect(() => {
+		temperaments.length === 0 && dispatch( getAllTemperaments() );
+    validate( form.name )
+	}, [form]);
 
-	// INPUT UNIT
-	const [unit, setUnit] = useState(true);
-	const handleUnit = () => {
-		unit === true ? setUnit(false) : setUnit(true);
-	};
+  const [showAlert, setShowAlert] = useState({preview : false , message : ""});
 
-	// INPUT MIN HEIGHT
-	const [minHeight, setMinHeight] = useState(Number);
-	const handleMinHeight = (event) => {
-		const value = Number(event.target.value);
-		if (value > maxHeight) {
-			setMinHeight(maxHeight + 1);
-			setMaxHeight(value);
-		} else {
-			setMinHeight(value);
-		}
-	};
+  const createDog = () => handlePost( form, setForm, error, setShowAlert)
 
-	// INPUT MAX HEIGHT
-	const [maxHeight, setMaxHeight] = useState(Number);
-	const handleMaxHeight = (event) => {
-		const value = Number(event.target.value);
-		if (value < minHeight) {
-			setMaxHeight(minHeight - 1);
-			setMinHeight(value);
-		} else {
-			setMaxHeight(value);
-		}
-	};
+  const randomDog = async ()=>{
+    const img = await axios.get("https://dog.ceo/api/breeds/image/random")
+    const {message} = img.data
+    setForm({
+      ...form, 
+      image: message
+    })
+  }
 
-	// INPUT MIN WEIGHT
-	const [minWeight, setMinWeight] = useState(Number);
-	const handleMinWeight = (event) => {
-		const value = Number(event.target.value);
-		if (value > maxWeight) {
-			setMinWeight(maxWeight + 1);
-			setMaxWeight(value);
-		} else {
-			setMinWeight(value);
-		}
-	};
+  return (
+  <div className={style.container}>
+    {<p className={style.enun}>Please indicate the characteristics of your dog below <span>{`(fields cannot be left empty)`}</span></p>}
 
-	// INPUT MAX WEIGHT
-	const [maxWeight, setMaxWeight] = useState(Number);
-	const handleMaxWeight = (event) => {
-		const value = Number(event.target.value);
-		if (value < minWeight) {
-			setMaxWeight(minWeight - 1);
-			setMinWeight(value);
-		} else {
-			setMaxWeight(value);
-		}
-	};
+    <div>
+      <label htmlFor="name">Name: </label>
+			<input className={style.input} type="search" name="name" value={form.name} onChange={updateForm} placeholder="Put your dog name" autoFocus={true} autoComplete={false}/>
+			{error.name ? <span className={style.warning}>{error.name}</span> : !form.name.length && <span className={style.warning}>Put your dog name</span>}<br />
+    </div>
+    
+    {/* HEIGHT */}
+    <label htmlFor="minHeight">Min height: </label>
+    <input className={style.input}  type="number" min={1} max={50} name="minHeight" value={form.minHeight} onChange={updateForm} style={{ width: "3rem" }}/>
+    <span>inchs </span>
+    <br />
+    <label htmlFor="maxHeight">Max height: </label>
+    <input className={style.input}  type="number" min={1} max={50} name="maxHeight" value={form.maxHeight} onChange={updateForm} style={{ width: "3rem" }} />
+    <span>inchs</span>
+    {form.maxHeight > 50 && <span className={style.warning}>Are you creating a dinosaur?</span>}
+    <br />
 
-	// INPUT YEAR
-	const [year, setYear] = useState(15);
-	const handleYear = (event) => {
-		setYear(event.target.value);
-	};
+    {/* WEIGHT */}
+    <label htmlFor="minWeight">Min weight: </label>
+    <input className={style.input}  type="number" min={1} max={250} name="minWeight" value={form.minWeight} onChange={updateForm} style={{ width: "3rem" }}/>
+    <span>pounds</span>
+    <br />
+    <label htmlFor="maxWeight">Max weight: </label>
+    <input className={style.input} type="number" min={1} max={250} name="maxWeight" value={form.maxWeight} onChange={updateForm} style={{ width: "3rem" }} />
+    <span>pounds</span>
+    {form.maxWeight > 250 && <span className={style.warning}>Are you creating a dinosaur?</span>}
+    <br />
 
-	// INPUT TEMP
-	const [tempSelect, setTempSelect] = useState([]);
-	const handleTemp = (event) => {
-		if (!tempSelect.includes(event.target.value)) {
-			setTempSelect([...tempSelect, event.target.value]);
-		} else {
-			setTempSelect(tempSelect.filter((temp) => temp !== event.target.value));
-		}
-	};
-
-	const [form, setForm] = useState({
-		name: nameDog,
-		height: `${minHeight} - ${maxHeight}`,
-		weight: `${minWeight} - ${maxWeight}`,
-		life_span: `${year}`,
-		temperamet: tempSelect,
-	});
-
-
-	const handlePost = () => {
-		//hago click y mando una peticion axios.post(http//:localhost:3001 , form)
-	};
-
-	return (
-		<div style={{ margin: "10px", width: "90%", justifyContent: "center" }}>
-			{/* NOMBRE */}
-			<label htmlFor="name">Name: </label>
-			<input
-				type="text"
-				name="name"
-				id=""
-				value={nameDog}
-				onChange={handleName}
-			/>
-			{error.name && <span>{error.name}</span>}
-			<br />
-
-			<label htmlFor="unit">Select unid</label>
-			<br />
-			<input type="radio" name="unit" id="" onChange={handleUnit} checked={unit} /> Imperial
-			<input type="radio" name="unit" id="" onChange={handleUnit} /> Metric
-			<br />
-			{/* ALTURA */}
-			<label htmlFor="min_height">Min Height: </label>
-			<input type="number" min={1} max={100} name="min_height" id="height" value={minHeight} onChange={handleMinHeight} style={{ width: "3rem" }}/>
-			{unit === true ? <span>Foots</span> : <span>Cm</span>}
-			<br />
-			<label htmlFor="max_height">Max Height: </label>
-			<input type="number" min={1} max={100} name="max_height" id="height" value={maxHeight} onChange={handleMaxHeight} style={{ width: "3rem" }} />
-			{unit === true ? <span>Foots</span> : <span> Cm</span>}
-			<br />
-			{/* WEIGHT */}
-			<label htmlFor="min_weight">Min Weight: </label>
-			<input type="number" min={1} max={100} name="min_weight" value={minWeight} onChange={handleMinWeight}	style={{ width: "3rem" }}	/>
-			{unit === true ? <span>Pounds</span> : <span>Kg</span>}
-			<br />
-			<label htmlFor="max_weight">Max Weight: </label>
-			<input type="number" min={1} max={100} name="max_weight" value={maxWeight} onChange={handleMaxWeight} style={{ width: "3rem" }} />
-			{unit === true ? <span>Pounds</span> : <span>Kg</span>}
-			<br />
-			{/* LIVE_SPAN */}
-			<label htmlFor="life_span">Life Span: </label>
-			<input type="range" min={1}	max={30} step={1} value={year} name="life_span" list="ticksmatks" onChange={handleYear} style={{ width: "10rem" }} />
+    {/* LIVE_SPAN */}
+			<label htmlFor="life_span">Life span: </label>
+			<input type="range" min={1}	max={30} step={1} value={form.life_span} name="life_span" list="ticksmatks" onChange={updateForm} style={{ width: "10rem" }} />
 			<datalist id="ticksmatks">
 				<option value="1" label="1" />
 				<option value="5" label="5" />
@@ -167,53 +96,31 @@ const Form = () => {
 				<option value="25" label="25" />
 				<option value="30" label="30" />
 			</datalist>
-			<br />
-			<input type="text" readOnly={true} value={year} style={{ width: "1rem" }} />
+			
+
+			<input className={style.input} type="text" readOnly={true} value={form.life_span} style={{ width: "1.25rem" }} />
 			<span>Years</span>
 			<br />
 			{/* TEMPERAMENT */}
-			<label htmlFor="temperament">Temperament</label>
-			<select name="temperament" id="" onClick={handleTemp}>
+			<label htmlFor="temperament">Temperament: </label>
+			<select name="temperament" onClick={updateForm} >
 				{temperaments.map((temp) => (
-					<option value={temp}>{temp}</option>
+					<option value={temp}>{temp} </option>
 				))}
 			</select>
 			<br />
-			<br />
-			<div
-				style={{
-					textAlign: "center",
-					backgroundColor: "grey",
-					width: "60%",
-					margin: "auto",
-				}}
-			>
-				<table style={{ justifyContent: "center" }}>
-					<thead>
-						<tr>
-							<th colspan="5">Your Dog Specify</th>
-						</tr>
-					</thead>
-					<tr>
-						<td>Name</td>
-						<td>Height</td>
-						<td>Weight</td>
-						<td>Life Span</td>
-						<td>Temperaments</td>
-					</tr>
-					<tr>
-						<td>{nameDog}</td>
-						<td>{`${minHeight}-${maxHeight}`}</td>
-						<td>{`${minWeight}-${maxWeight}`}</td>
-						<td>{year}</td>
-						<td>{tempSelect.join(", ")}</td>
-					</tr>
-				</table>
-			</div>
-			<br />
-			<button onClick={handlePost}>Create</button>
-		</div>
-	);
-};
+			{form.temperamentId.length === 0 && <span className={style.warning} style={{position:"inherit"}}>Select almost one temperament</span>}
+			<p>{[...form.temperament].join(", ")}</p>
 
-export default Form;
+     Put Url image<input className={style.input} type="url" name="image" placeholder='http://' value={form.image} onChange={updateForm} />
+    <button className={style.btn} onClick={randomDog}>Random</button>
+    <div>
+		  <button className={style.btn} onClick={ () => setShowAlert( {...showAlert, preview:true} ) } > Preview </ button>
+      {showAlert.preview && <Alert form={form}  setForm={setForm} showAlert={showAlert} setShowAlert={setShowAlert} createDog={createDog}/>}
+    </div>
+    </div>
+
+  )
+}
+
+export default Form

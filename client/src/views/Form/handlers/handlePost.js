@@ -1,8 +1,8 @@
 import axios from "axios";
 
 
-export default function handlePost ( form, setForm, error, setShowAlert) {
-  const {name,minHeight,maxHeight,minWeight,maxWeight,life_span,temperamentId, image} = form
+export default async function handlePost ( form, setForm, error, setShowAlert) {
+  const {name, minHeight, maxHeight, minWeight, maxWeight, life_span, temperamentId, image} = form
 
   const newDog = {
     name:name,
@@ -24,22 +24,14 @@ export default function handlePost ( form, setForm, error, setShowAlert) {
     temperamentId: [],
     image:""
   }
-
-  if(!form.minHeight || !form.maxHeight || !form.minWeight || !form.minWeight || !form.name.length || !form.temperament.length ) {
-    return setShowAlert({created : true, message : "Completed the form"});
-  }
-
-    axios.post("http://localhost:3001/dogs/", newDog)
-    .then(res => res.data)
-    .catch(error)
-    
+try {
+    const postDog = await axios.post("http://localhost:3001/dogs/", newDog)
+    const postData = postDog.data
     setForm(reset)
-    setShowAlert({
-      created : true, 
-      message : `you are create a dog with the propertys:
-            Name:${name},
-            Height: ${minHeight} - ${maxHeight} inchs,
-            Weight: ${minWeight} - ${maxWeight} pounds,
-            Life span: ${life_span}
-    `});
+    setShowAlert({preview : false , message : ""})
+    alert(postData.message)
+  } catch (error) {
+    throw Error ('Oops')
+}
+
 }

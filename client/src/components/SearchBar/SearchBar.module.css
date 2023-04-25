@@ -1,0 +1,46 @@
+.btnDiv{
+  /* background-color: aqua; */
+  width: 500px;
+  justify-items: space-evenly;
+  z-index: 7;
+
+}
+.btn{
+  border-radius: 5px;
+  margin-right: 5px;
+  height: 2rem;
+  font-size: large;
+  transition: 100ms;
+  font-weight: bold ;
+  font-style: oblique;
+}
+.btn:hover{
+  cursor: pointer;
+  background-color: darkkhaki;
+  color: blanchedalmond;
+}
+.btn:active{
+  background-color: blueviolet;
+}
+.input{
+  margin-right: 5px;
+  height: 1.4rem;
+  width: 50%;
+  outline: none;
+  background-color: rgba(245, 222, 179, 0.548);
+  border: none;
+  border-bottom: 3px solid black;
+  text-align: center;
+  font-size: 1.2rem;
+  border-radius: 8px;
+}
+h2{
+  color:rgb(182, 146, 47);
+  margin-right: 0.5rem;
+  text-shadow:     
+  -1px -1px 0 #000,  
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;;
+  font-size: 1.4rem;
+}

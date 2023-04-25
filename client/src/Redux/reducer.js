@@ -8,6 +8,7 @@ import {
 	ORDER_BY_NAME,
 	ORDER_BY_WEIGHT,
 	GET_JOIN_DOGS,
+	SET_ERROR,
 } from "./actions";
 
 
@@ -17,6 +18,7 @@ const initialState = {
 	dogs_page: [],
 	temperaments: [],
 	names: [],
+	error: ""
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -82,6 +84,11 @@ const rootReducer = (state = initialState, action) => {
 					...state,
 					dogs_page : [...state.dogs_page].sort((a,b)=>a.weight.length && b.weight[1]-a.weight[1])
 				}
+			}
+		case SET_ERROR:
+			return {
+				...state,
+				error : action.payload
 			}
 		default:
 			return { ...state };

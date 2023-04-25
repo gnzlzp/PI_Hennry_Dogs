@@ -5,11 +5,6 @@ const getDogByIdHandler = async (req, res) => {
 
 	const src = isNaN(id) ? "bd" : "api";
 
-	// if(isNaN(id)){
-	// 	//busca en la bd
-	// }else{
-	// 	//busca en la api
-	// }
 	try {
 		const dog = await getDogById(id, src);
 		res.status(200).json(dog);
