@@ -1,4 +1,4 @@
-import style from "./Select.module.css"
+import style from "./Filters.module.css"
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByTemp, orderByName, orderByWeight } from "../../Redux/actions";
@@ -6,6 +6,7 @@ import { filterByTemp, orderByName, orderByWeight } from "../../Redux/actions";
 const Select = ({show_dogs,temperaments,currentPage,setCurrentPage}) => {
   const myDogs = useSelector((state) => state.myDogs);
   const dogs = useSelector((state) => state.dogs);
+  const dogs_page = useSelector((state) => state.dogs_page);
 	const dispatch = useDispatch();
 
 	const handleOrder = (event) => {
@@ -18,7 +19,6 @@ const Select = ({show_dogs,temperaments,currentPage,setCurrentPage}) => {
 		}else{
  			dispatch(orderByWeight(value))
 			setCurrentPage(1)
-
 		}
 };
 

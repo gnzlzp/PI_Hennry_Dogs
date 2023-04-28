@@ -1,19 +1,19 @@
 const axios = require("axios");
-const {Dog} = require("../db")
+const { Dog, Temperament } = require("../db");
 const { Op } = require("sequelize");
-const url_image = "https://cdn2.thedogapi.com/images/"
-
 
 const getBreedByName = async (name) => {
-
-	// const dogName = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`);
-	const dogName = await axios.get(`https://api.thedogapi.com/v1/breeds`)
-	const dogsData = dogName.data
-	const dogsByName = dogsData.filter(d=>d.name.toLowerCase().includes(name.toLowerCase()))
+	const dogName = await axios.get(`https://api.thedogapi.com/v1/breeds`);
+	const dogsData = dogName.data;
+	const dogsByName = dogsData.filter((d) =>
+		d.name.toLowerCase().includes(name.toLowerCase())
+	);
 
 	const dogsList = await dogsByName.map((dog) => {
-		const weights =  dog.weight.imperial.includes(' – ') ? dog.weight.imperial.split(' – ') : dog.weight.imperial.split(' - ')
-		const heights = dog.height.imperial.split (' - ')
+		const weights = dog.weight.imperial.includes(" – ")
+			? dog.weight.imperial.split(" – ")
+			: dog.weight.imperial.split(" - ");
+		const heights = dog.height.imperial.split(" - ");
 		return {
 			id: dog.id,
 			name: dog.name,
@@ -22,23 +22,31 @@ const getBreedByName = async (name) => {
 			life_span: dog.life_span,
 			temperament: dog.temperament,
 			image: dog.image.url,
-			// image: `${url_image}${dog.reference_image_id}.jpg`,
 			create: false,
 		};
 	});
-		
+
 	const dogs_db = await Dog.findAll({
 		where: {
-		  name: {
-			[Op.iLike]: `%${name}%`,
-		  },
+			name: {
+				[Op.iLike]: `%${name}%`,
+			},
 		},
-	  });
-	if(!dogsList.length && !dogs_db.length){
-		throw Error ('Name not found')
+		include: {
+			model: Temperament,
+			attributes: ["name"],
+			through: {
+				attributes: [],
+			},
+		},
+	});
+
+	if (!dogsList.length && !dogs_db.length) {
+		throw Error("Name not found");
+	} else {
+		return [...dogsList, ...dogs_db];
 	}
 
-	return [...dogsList,...dogs_db]
 };
 
 module.exports = {

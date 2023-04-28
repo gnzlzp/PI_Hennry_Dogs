@@ -31,7 +31,8 @@ try {
     setShowAlert({preview : false , message : ""})
     alert(postData.message)
   } catch (error) {
-    throw Error ('Oops')
+    const message = error.response.data.error
+		alert(message)
 }
 
 }

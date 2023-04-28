@@ -1,4 +1,4 @@
-import style from "./Button.module.css"
+import style from "./Pages.module.css"
 import React from "react";
 
 const Botones = ({ totalPages, currentPage, setCurrentPage}) => {

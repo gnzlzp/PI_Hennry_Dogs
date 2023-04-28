@@ -19,15 +19,11 @@ const createDog = async (
 			create
 		});
 
-		// if (temperament && temperament.length > 0) {
-		// 	const temperamentDb = await Temperament.findAll({
-		// 		where: { name: temperament },
-		// 	});
 			await newDog.addTemperaments(temperament);
-		// }
 		
 		return newDog;
 	}
+	throw Error ("Missing Data!")
 };
 module.exports = {
 	createDog,

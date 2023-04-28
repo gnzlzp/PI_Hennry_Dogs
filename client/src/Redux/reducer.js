@@ -9,15 +9,16 @@ import {
 	ORDER_BY_WEIGHT,
 	GET_JOIN_DOGS,
 	SET_ERROR,
+	GET_DETAIL,
 } from "./actions";
 
 
 const initialState = {
-	images: [],
 	dogs: [],
 	dogs_page: [],
+	dog_detail: {},
 	temperaments: [],
-	names: [],
+	// names: [],
 	error: ""
 };
 
@@ -37,7 +38,7 @@ const rootReducer = (state = initialState, action) => {
 		case SEARCH_NAME:
 			return {
 				...state,
-				names: [...action.payload],
+				// names: [...action.payload],
 				dogs_page: [...action.payload],
 			};
 		case GET_MY_DOGS:
@@ -89,6 +90,11 @@ const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				error : action.payload
+			}
+		case GET_DETAIL:
+			return {
+				...state,
+				dog_detail : action.payload
 			}
 		default:
 			return { ...state };

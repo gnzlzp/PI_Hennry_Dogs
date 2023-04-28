@@ -10,7 +10,7 @@
   justify-self: end;
 
 }
-.select{
+.filters{
   grid-row-start: 5;
   justify-self: end;
 
@@ -23,7 +23,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 } */
-.main_btns{
+.btns_pages{
   grid-row-start: 4;
   position: fixed;
   left: 20px;

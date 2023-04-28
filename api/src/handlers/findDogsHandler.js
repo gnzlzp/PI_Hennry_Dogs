@@ -5,10 +5,9 @@ const findDogsHandler = async (req, res) => {
 	try {
 		const breeds = await getBreedByName(name);
 		breeds 
-		? res.status(200).json(breeds)
-		: res.status(200).json({message : 'Name not found' })
+		&& res.status(200).json(breeds)
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		res.status(400).json({ error: error.message });
 	}
 };
 

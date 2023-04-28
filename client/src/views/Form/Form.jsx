@@ -104,8 +104,8 @@ const Form = () => {
 			{/* TEMPERAMENT */}
 			<label htmlFor="temperament">Temperament: </label>
 			<select name="temperament" onClick={updateForm} >
-				{temperaments.map((temp) => (
-					<option value={temp}>{temp} </option>
+				{temperaments.map((temp, index) => (
+					<option key={index} value={temp}>{temp} </option>
 				))}
 			</select>
 			<br />

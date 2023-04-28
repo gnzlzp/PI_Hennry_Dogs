@@ -3,13 +3,12 @@ import { getAllDogs, getAllTemperaments } from "../../Redux/actions";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import Buttons from "../../components/Buttons/Buttons";
-import Select from "../../components/Select/Select";
+import Pages from "../../components/Pages/Pages";
+import Filters from "../../components/Filters/Filters";
 import Galery from "../../components/Galery/Galery";
 
 const HomePage = () => {
 	const dispatch = useDispatch();
-	// const [isMounted, setIsMounted] = useState(false);
 
 	const ITEMS_PER_PAGE = 8; // número de elementos por página
 	const [currentPage, setCurrentPage] = useState(1); // estado para la página actual
@@ -26,7 +25,6 @@ const HomePage = () => {
 	);
 
 	useEffect(() => {
-		// setIsMounted(true);
 		dispatch(getAllDogs()); // que haga el dispatch si la longitud de dogs cambio
 		!temperaments.length && dispatch(getAllTemperaments());
 	}, []);
@@ -42,8 +40,8 @@ const HomePage = () => {
 					<br />
 					</div>
 						{/* --------------FILTRADO------------------ */}
-					<div className={style.select} >
-						<Select 
+					<div className={style.filters} >
+						<Filters 
 						show_dogs={show_dogs} 
 						temperaments={temperaments} 
 						currentPage={currentPage}
@@ -51,8 +49,8 @@ const HomePage = () => {
 						/>
 					</div>
 						{/* ----------PAGINACION------------------- */}
-					<div className={style.main_btns}>
-						<Buttons
+					<div className={style.btns_pages}>
+						<Pages
 							totalPages={totalPages}
 							currentPage={currentPage}
 							setCurrentPage={setCurrentPage}

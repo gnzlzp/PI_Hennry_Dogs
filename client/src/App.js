@@ -15,10 +15,10 @@ function App() {
 			{pathname !== '/' && <NavBar />}
 			</div>
 			<Routes>
-				<Route exact path={"/"} element={<Landing/>} />
-				<Route exact path={"/dogs"} element={<HomePage/>} />	
-				<Route exact path={"/detail/:id"} element={<Detail/>} />
-				<Route exact path={"/form"} element={<Form/>} />
+				<Route path={"/"} element={<Landing/>} />
+				<Route path={"/dogs"} element={<HomePage/>} />	
+				<Route path={"/detail/:id"} element={<Detail/>} />
+				<Route path={"/form"} element={<Form/>} />
 			</Routes>
 		</div>
 	);

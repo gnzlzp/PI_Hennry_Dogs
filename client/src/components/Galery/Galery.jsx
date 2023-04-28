@@ -20,21 +20,12 @@ const Galery = ({ show_dogs }) => {
 			))
       : 
       <div className={style.card}>
-        <h1> You don't have dogs created yet </h1>  
-        <h3>If you want creat one dog, push in "Create Dog"</h3>
+        <h1> Loading... </h1>  
       </div>
       
       }
 		</div>
 	);
 };
-
-// const Galery = ({ show_dogs }) => {
-// 	return (
-// 		<>
-// 			{show_dogs.length && show_dogs.map((dog, index) => <Card dog={dog} key={index} /> )}
-// 		</>
-// 	);
-// };
 
 export default Galery;
