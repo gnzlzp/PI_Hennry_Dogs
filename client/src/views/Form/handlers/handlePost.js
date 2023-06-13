@@ -25,7 +25,7 @@ export default async function handlePost ( form, setForm, error, setShowAlert) {
     image:""
   }
 try {
-    const postDog = await axios.post("http://localhost:3001/dogs/", newDog)
+    const postDog = await axios.post("/dogs/", newDog)
     const postData = postDog.data
     setForm(reset)
     setShowAlert({preview : false , message : ""})
