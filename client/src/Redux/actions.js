@@ -15,14 +15,14 @@ export const GET_DETAIL = "GET_DETAIL";
 
 export const getAllDogs = () => {
 	return async function (dispatch) {
-		const res = await axios.get("http://localhost:3001/dogs");
+		const res = await axios.get("/dogs");
 		const dogs = res.data;
 		return dispatch({ type: GET_ALL_DOGS, payload: dogs });
 	};
 };
 export const getAllTemperaments = () => {
 	return async function (dispatch) {
-		const res = await axios.get("http://localhost:3001/temperaments");
+		const res = await axios.get("/temperaments");
 		const { temperaments } = res.data;
 		return dispatch({ type: GET_ALL_TEMPERAMENTS, payload: temperaments });
 	};
@@ -32,7 +32,7 @@ export const searchName = (name) => {
 	return async function (dispatch) {
 		try {
 			const res = await axios.get(
-				`http://localhost:3001/dogs/name?name=${name.toLowerCase()}`
+				`/dogs/name?name=${name.toLowerCase()}`
 			);
 			const dogName = res.data;
 			dispatch({ type: SEARCH_NAME, payload: dogName });
@@ -46,7 +46,7 @@ export const searchName = (name) => {
 
 export const getDetail = (id) => {
 	return async function (dispatch) {
-		const dogDetail = await axios.get(`http://localhost:3001/dogs/${id}`);
+		const dogDetail = await axios.get(`/dogs/${id}`);
 		!dogDetail.data.Temperaments
 			? dispatch({ type: GET_DETAIL, payload: dogDetail.data })
 			: dispatch({
