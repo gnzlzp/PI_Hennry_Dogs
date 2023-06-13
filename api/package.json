@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha -w ./tests/**/*.spec.js",
-    "build": "tsc",
-    "build:api": "tsc -p tsconfig.json"
+    "test": "mocha -w ./tests/**/*.spec.js"
   },
   "author": "Henry",
   "license": "ISC",
