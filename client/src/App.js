@@ -6,6 +6,8 @@ import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./views/Home/HomePage.jsx";
 import Detail from "./views/Detail/Detail";
 import Form from "./views/Form/Form";
+import axios from "axios";
+axios.defaults.baseURL = "http://api-dogs.up.railway.app/"
 
 function App() {
 	const {pathname} = useLocation()
