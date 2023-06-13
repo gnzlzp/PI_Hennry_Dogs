@@ -8,7 +8,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://doogies.up.railway.app/"
+axios.defaults.baseURL = "http://localhost:3000"
 ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
