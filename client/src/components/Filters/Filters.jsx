@@ -44,7 +44,7 @@ const Select = ({show_dogs,temperaments,currentPage,setCurrentPage}) => {
 			<select
 				className={style.select}
         name="order_name"
-				onClick={handleOrder}
+				onChange={handleOrder}
 			> 
 				<option value="AscName">A - Z</option>
 				<option value="DescName">Z - A</option>
@@ -57,7 +57,7 @@ const Select = ({show_dogs,temperaments,currentPage,setCurrentPage}) => {
 			<select
 				className={style.select}
         name="order_weight"
-				onClick={handleOrder}
+				onChange={handleOrder}
 			> 
 				<option value="AscWeight">Lighter</option>
 				<option value="DescWeight">Heavier</option>

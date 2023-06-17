@@ -6,6 +6,7 @@
   background-image: url(./images/dog-main.jpg);
   background-size: cover;
   background-attachment: fixed;
+  min-width: none;
   min-height: 100vh;
   text-align: center;
   /* vertical-align: middle; */

@@ -31,10 +31,10 @@ const HomePage = () => {
 	
 	return (
 		<>
-			<div style={{ display: "flex", width: "100%" }} >
-				<section className={style.conteinerSelectors}>
+			<div style={{ display: "flex", flexWrap:"wrap"}} >
+				<section className={style.conteinerSelectors} style={{width:"40%"}}>
 						{/* --------------BUSQUEDA------------------ */}
-					<div className={style.search} >
+					<div className={style.search}>
 						<SearchBar  currentPage={currentPage}
 						setCurrentPage={setCurrentPage}/>
 					<br />
@@ -59,7 +59,7 @@ const HomePage = () => {
 						<br />
 				</section>
 
-				<section>
+				<section style={{display:"flex", width:"60%"}}>
 					<div className={style.conteinerGalery}>
 						<Galery show_dogs={show_dogs} />
 					</div>
